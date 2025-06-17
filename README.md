@@ -24,7 +24,7 @@
 - :bust_in_silhouette: Quản lý tài khoản người dùng (xem, phân quyền, sửa, xóa)
 - :shopping_cart: Quản lý đơn hàng (xem, duyệt, hủy, cập nhật trạng thái)
 - :bar_chart: Xem báo cáo/thống kê doanh thu, số lượng đơn hàng, sản phẩm bán chạy
-- :bell: trả lời phản hồi của người dùng
+- :bell: Trả lời phản hồi của người dùng
 
 #### :bust_in_silhouette: Chức năng của Người mua (User):
 - :tshirt: Duyệt và tìm kiếm sản phẩm theo tên, danh mục, giá
@@ -44,75 +44,82 @@
 
 ---
 
-## 	:brain: Sơ Đồ
+## :brain: Sơ Đồ
 
-
-## 1. Sơ đồ cấu trúc (Class Diagram)
+### :file_cabinet: Sơ đồ cơ sở dữ liệu
 
 ![Sơ đồ cơ sở dữ liệu](Img/db.png)
 
-**Mô tả:**  
-- `User`: Quản lý thông tin người dùng, phân quyền (user/admin)
-- `Product`: Quản lý sản phẩm
-- `Order`: Quản lý đơn hàng
-- `OrderItem`: Chi tiết sản phẩm trong đơn hàng
-- `Category`: Danh mục sản phẩm
-- `Contact`: Liên hệ/góp ý từ người dùng
-- `ContactReply`: Phản hồi từ admin
+#### 1. Các bảng chính
+
+- **users**  
+  Lưu thông tin tài khoản người dùng (admin và user): tên, email, mật khẩu, thời gian tạo/cập nhật, v.v.
+- **categories**  
+  Quản lý danh mục sản phẩm (ví dụ: áo, quần, váy...).
+- **products**  
+  Lưu thông tin sản phẩm: tên, mô tả, giá, hình ảnh, thuộc danh mục nào.
+- **carts**  
+  Đại diện cho giỏ hàng của từng user.
+- **cart_items**  
+  Lưu chi tiết các sản phẩm trong từng giỏ hàng (sản phẩm nào, số lượng bao nhiêu).
+- **orders**  
+  Lưu thông tin đơn hàng của người dùng: tổng tiền, trạng thái, thời gian đặt hàng.
+- **order_details**  
+  Lưu chi tiết từng sản phẩm trong đơn hàng (sản phẩm nào, số lượng, giá tại thời điểm đặt).
+- **sessions**  
+  Quản lý phiên đăng nhập của người dùng.
+- **contacts**  
+  Lưu các phản hồi/góp ý/liên hệ từ người dùng gửi tới admin.
+
+#### 2. Mối quan hệ giữa các bảng
+
+- **users** 1---n **carts**: Mỗi user có thể có nhiều giỏ hàng (thường chỉ 1 giỏ hàng đang hoạt động).
+- **carts** 1---n **cart_items**: Mỗi giỏ hàng có nhiều sản phẩm.
+- **products** 1---n **cart_items**: Một sản phẩm có thể nằm trong nhiều giỏ hàng khác nhau.
+- **categories** 1---n **products**: Một danh mục có nhiều sản phẩm.
+- **users** 1---n **orders**: Một user có thể đặt nhiều đơn hàng.
+- **orders** 1---n **order_details**: Một đơn hàng có nhiều sản phẩm.
+- **products** 1---n **order_details**: Một sản phẩm có thể xuất hiện trong nhiều đơn hàng.
+- **users** 1---n **contacts**: Một user có thể gửi nhiều liên hệ/góp ý.
+- **users** 1---n **sessions**: Một user có thể có nhiều phiên đăng nhập.
+
+### :pushpin: Sơ đồ cấu trúc (Class Diagram)
+
+![Sơ đồ cấu trúc](Img/class.png)
+
+### :pushpin: Sơ đồ thuật toán
+
+- Admin quản lý sản phẩm (CRUD)  
+  ![Quản lý sản phẩm](Img/QuanLySanPham.png)
+- Admin quản lý tài khoản (CRUD)  
+  ![Quản lý tài khoản](Img/QuanLyTaiKhoan.png)
+- Admin quản lý danh sách đơn hàng  
+  ![Quản lý danh sách đơn hàng](Img/QuanLyDanhSachDonHang.png)
+- User xem sản phẩm  
+  ![User xem sản phẩm](Img/UserXemSanPham.png)
+- User mua hàng, đặt hàng, thanh toán  
+  ![User mua hàng](Img/UserMuaHang.png)
+- User gửi liên hệ  
+  ![User gửi liên hệ](Img/UserGuiLienHe.png)
 
 ---
 
-## 2. Sơ đồ thuật toán (Activity Diagram)
+## :gear: Cài Đặt
 
-### a. Hiển thị tất cả sản phẩm được mua bởi khách hàng
+```sh
+# 1. Clone Repository
+git clone https://github.com/DANG-NGOC-DUC/ShopThoiTrang.git
+cd ShopThoiTrang/BanHang
 
-![Activity Diagram - Hiển thị sản phẩm đã mua](docs/activity-diagram-products-bought.png)
+# 2. Cài Đặt Dependencies PHP
+composer install
 
-**Mô tả:**  
-- Người dùng đăng nhập → Chọn xem lịch sử mua hàng → Hệ thống truy vấn các đơn hàng của user → Hiển thị danh sách sản phẩm đã mua.
+# 3. Cấu Hình Environment
+cp .env.example .env
+php artisan key:generate
 
-### b. Tìm kiếm số lượng sản phẩm được lựa chọn nhiều nhất
-
-![Activity Diagram - Sản phẩm được mua nhiều nhất](docs/activity-diagram-most-bought.png)
-
-**Mô tả:**  
-- Admin chọn chức năng thống kê → Hệ thống truy vấn bảng order_items, group theo product_id, đếm số lượng → Sắp xếp giảm dần → Hiển thị sản phẩm bán chạy nhất.
-
----
-
-## 3. Ảnh chụp màn hình chức năng chính
-
-### a. Trang chủ người dùng
-
-![Trang chủ](docs/screenshot-home.png)
-
-### b. Trang quản lý sản phẩm (Admin)
-
-![Quản lý sản phẩm](docs/screenshot-admin-product.png)
-
-### c. Trang giỏ hàng
-
-![Giỏ hàng](docs/screenshot-cart.png)
-
-### d. Trang liên hệ và phản hồi
-
-![Liên hệ](docs/screenshot-contact.png)
-
----
-
-## 4. Code minh họa phần chính project
-
-### a. Truy vấn sản phẩm được mua nhiều nhất
-
-```php
-// Lấy sản phẩm được mua nhiều nhất
-use App\Models\OrderItem;
-use App\Models\Product;
-
-$topProducts = OrderItem::select('product_id', \DB::raw('SUM(quantity) as total'))
-    ->groupBy('product_id')
-    ->orderByDesc('total')
-    ->take(5)
-    ->with('product')
-    ->get();
+# 4. Khởi Động Development Server
+php artisan serve
 ```
+
+
