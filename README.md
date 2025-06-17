@@ -49,7 +49,7 @@
 
 ## 1. Sơ đồ cấu trúc (Class Diagram)
 
-![Sơ đồ cơ sở dữ liệu](storage/readme/db.png)
+![Sơ đồ cơ sở dữ liệu](Img/readme/db.png)
 
 **Mô tả:**  
 - `User`: Quản lý thông tin người dùng, phân quyền (user/admin)
