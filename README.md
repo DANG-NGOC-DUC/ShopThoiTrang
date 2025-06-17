@@ -53,22 +53,25 @@
 
 ## :gear: Cài Đặt
 
+1. Clone Repository
 ```sh
-# 1. Clone Repository
 git clone https://github.com/DANG-NGOC-DUC/ShopThoiTrang.git
 cd ShopThoiTrang/BanHang
 ```
+
+2. Cài Đặt Dependencies PHP
 ```sh
-# 2. Cài Đặt Dependencies PHP
 composer install
 ```
+
+3. Cấu Hình Environment
 ```sh
-# 3. Cấu Hình Environment
 cp .env.example .env
 php artisan key:generate
 ```
+
+4. Khởi Động Development Server
 ```sh
-# 4. Khởi Động Development Server
 php artisan serve
 ```
 
