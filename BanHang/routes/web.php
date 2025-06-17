@@ -14,98 +14,69 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\AdminDashboardController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+
 // ============login, logout, register=================
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('login.form');
 Route::post('/login', [LoginController::class, 'login'])->name('login');
-
-Route::get('/user/home', function () {
-    return view('user.home');
-})->name('user.home');
-
-Route::get('/admin/user', function () {
-    return view('admin.user');
-})->name('admin.user');
-
 Route::post('/logout', function () {
     Auth::logout();
     return redirect()->route('login.form');
 })->name('logout');
-
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register'])->name('register.submit');
 
-
 // =================user=========================
-Route::get('/user/shop', function () {
-    return view('user.shop');
-})->name('user.shop');
-
-Route::get('/user/home', [UserHomeController::class, 'index'])->name('user.home');
-Route::middleware(['auth'])->group(function () {
-    Route::get('/user/profile', [ProfileController::class, 'show'])->name('user.profile');
-    Route::put('/user/profile/{id}', [ProfileController::class, 'update'])->name('user.profile.update');
+Route::middleware(['auth'])->prefix('user')->group(function () {
+    Route::get('/home', [UserHomeController::class, 'index'])->name('user.home');
+    Route::get('/profile', [ProfileController::class, 'show'])->name('user.profile');
+    Route::put('/profile/{id}', [ProfileController::class, 'update'])->name('user.profile.update');
+    Route::get('/shop', [ShopController::class, 'index'])->name('user.shop');
+    Route::get('/cart', [CartController::class, 'index'])->name('user.cart');
+    Route::put('/cart/{id}', [CartController::class, 'update'])->name('user.cart.update');
+    Route::put('/cart/ajax-update/{id}', [CartController::class, 'ajaxUpdate'])->name('user.cart.ajaxUpdate');
+    Route::delete('/cart/{id}', [CartController::class, 'remove'])->name('user.cart.remove');
+    Route::post('/cart/add', [CartController::class, 'add'])->name('user.cart.add');
+    Route::get('/contact', [ContactController::class, 'index'])->name('user.contact');
+    Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
+    Route::get('/blog', function () {
+        return view('user.blog');
+    })->name('user.blog');
 });
 
-//===================user cart=========================
-Route::get('/user/cart', [CartController::class, 'index'])->name('user.cart');
-Route::put('/user/cart/{id}', [CartController::class, 'update'])->name('user.cart.update');
-Route::put('/user/cart/ajax-update/{id}', [CartController::class, 'ajaxUpdate'])->name('user.cart.ajaxUpdate');
-
-Route::delete('/user/cart/{id}', [CartController::class, 'remove'])->name('user.cart.remove');
-
-Route::post('/user/cart/add', [CartController::class, 'add'])->name('user.cart.add');
-
-Route::get('/user/contact', [ContactController::class, 'index'])->name('user.contact');
-Route::post('/user/contact', [ContactController::class, 'submit'])->name('contact.submit');
-
-
-
+// Route shop public (không cần đăng nhập)
 Route::get('/shop', [ShopController::class, 'index'])->name('user.shop');
 
-
-Route::get('/user/blog', function () {
-    return view('user.blog');
-})->name('user.blog');
-
-
 // =================admin=========================
-// Route admin category
-Route::get('/admin/category', [AdminCategoryController::class, 'index'])->name('admin.category');
-Route::put('/admin/category/{id}', [AdminCategoryController::class, 'update'])->name('admin.category.update'); // hoặc admin.user.update
-Route::delete('/admin/category/{id}', [AdminCategoryController::class, 'destroy'])->name('admin.category.destroy');
-Route::post('/admin/category', [AdminCategoryController::class, 'store'])->name('admin.category.store');
-
-
-// Route admin user
-Route::get('/admin/user', [AdminUserController::class, 'index'])->name('admin.user');
-Route::put('/admin/user/{id}', [AdminUserController::class, 'update'])->name('admin.user.update'); // hoặc admin.user.update
-Route::delete('/admin/user/{id}', [AdminUserController::class, 'destroy'])->name('admin.user.destroy');
-
-// Route admin order
-Route::get('/admin/order', [AdminOrderController::class, 'index'])->name('admin.order');
-Route::put('/admin/order/{id}', [AdminOrderController::class, 'update'])->name('admin.order.update'); 
-Route::delete('/admin/order/{id}', [AdminOrderController::class, 'destroy'])->name('admin.order.destroy');
-
-// Route admin product
-Route::get('/admin/product', [AdminProductController::class, 'index'])->name('admin.product');
-Route::put('/admin/product/{id}', [AdminProductController::class, 'update'])->name('admin.product.update'); 
-Route::delete('/admin/product/{id}', [AdminProductController::class, 'destroy'])->name('admin.product.destroy');
-Route::post('/admin/product', [AdminProductController::class, 'store'])->name('admin.product.store');
-
-//Route admin notification
-Route::post('/admin/contact-replies', [NotificationController::class, 'storeReply'])->name('contact-replies.store');
-
-Route::get('/admin/notification', [NotificationController::class, 'index'])->name('admin.notification');
-
-// Route admin dashboard
-Route::prefix('admin')->middleware(['auth'])->group(function () {
+Route::middleware(['auth'])->prefix('admin')->group(function () {
+    // Dashboard
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+
+    // Category
+    Route::get('/category', [AdminCategoryController::class, 'index'])->name('admin.category');
+    Route::post('/category', [AdminCategoryController::class, 'store'])->name('admin.category.store');
+    Route::put('/category/{id}', [AdminCategoryController::class, 'update'])->name('admin.category.update');
+    Route::delete('/category/{id}', [AdminCategoryController::class, 'destroy'])->name('admin.category.destroy');
+
+    // User
+    Route::get('/user', [AdminUserController::class, 'index'])->name('admin.user');
+    Route::put('/user/{id}', [AdminUserController::class, 'update'])->name('admin.user.update');
+    Route::delete('/user/{id}', [AdminUserController::class, 'destroy'])->name('admin.user.destroy');
+
+    // Order
+    Route::get('/order', [AdminOrderController::class, 'index'])->name('admin.order');
+    Route::put('/order/{id}', [AdminOrderController::class, 'update'])->name('admin.order.update');
+    Route::delete('/order/{id}', [AdminOrderController::class, 'destroy'])->name('admin.order.destroy');
+
+    // Product
+    Route::get('/product', [AdminProductController::class, 'index'])->name('admin.product');
+    Route::post('/product', [AdminProductController::class, 'store'])->name('admin.product.store');
+    Route::put('/product/{id}', [AdminProductController::class, 'update'])->name('admin.product.update');
+    Route::delete('/product/{id}', [AdminProductController::class, 'destroy'])->name('admin.product.destroy');
+
+    // Notification
+    Route::get('/notification', [NotificationController::class, 'index'])->name('admin.notification');
+    Route::post('/contact-replies', [NotificationController::class, 'storeReply'])->name('contact-replies.store');
 });
-
-
-
-
-
 
 
 // Route::get('/admin/layout', function () {
