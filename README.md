@@ -57,14 +57,17 @@
 # 1. Clone Repository
 git clone https://github.com/DANG-NGOC-DUC/ShopThoiTrang.git
 cd ShopThoiTrang/BanHang
-
+```
+```sh
 # 2. Cài Đặt Dependencies PHP
 composer install
-
+```
+```sh
 # 3. Cấu Hình Environment
 cp .env.example .env
 php artisan key:generate
-
+```
+```sh
 # 4. Khởi Động Development Server
 php artisan serve
 ```
@@ -145,9 +148,8 @@ php artisan serve
 - **Views**  
   ![Views](Img/Views.png)
 
----
 
-### **Routes**
+### :globe_with_meridians: Routes
 
 ```php
 use App\Http\Controllers\LoginController;
