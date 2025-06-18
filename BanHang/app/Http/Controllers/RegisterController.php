@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Role;
 
@@ -41,7 +42,11 @@ class RegisterController extends Controller
             'role_id' => $roleUser->id,
         ]);
 
-        return redirect()->route('login')->with('success', 'Đăng ký thành công! Vui lòng đăng nhập.');
+        // Đăng nhập luôn cho user vừa đăng ký
+        Auth::login($user);
+
+        // Chuyển đến trang user.home
+        return redirect()->route('user.home');
     }
 }
 

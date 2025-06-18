@@ -52,7 +52,7 @@
             </div>
 
             <div class="text-center mt-3">
-                <a href="{{ route('login') }}">Đăng nhập</a>
+                <a href="{{ route('login.form') }}">Đăng nhập</a>
             </div>
         </form>
     </div>
