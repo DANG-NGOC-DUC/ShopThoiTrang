@@ -220,3 +220,16 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::post('/contact-replies', [NotificationController::class, 'storeReply'])->name('contact-replies.store');
 });
 ```
+---
+
+## :framed_picture: Giao Diện Chính Website
+
+- Giao diện Đăng nhập/ Đăng ký  
+  <img src="Img/login.png" width="45%" style="display:inline-block; margin-right:10px;">
+  <img src="Img/reigister.png" width="45%" style="display:inline-block;">
+
+- Giao diện của Admin  
+  ![Giao diện Admin](Img/Admin.png)
+
+- Giao diện của User  
+  ![Giao diện User](Img/User.png)
