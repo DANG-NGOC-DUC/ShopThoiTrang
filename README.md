@@ -93,7 +93,6 @@ php artisan serve
 ## :brain: Sơ Đồ
 
 ### :file_cabinet: Sơ đồ cơ sở dữ liệu
-
 ![Sơ đồ cơ sở dữ liệu](Img/db.png)
 
 #### 1. Các bảng chính
