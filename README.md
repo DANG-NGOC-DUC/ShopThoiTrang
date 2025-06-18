@@ -47,7 +47,7 @@
 |  2  | MySQL (Aiven Cloud) | Hệ quản trị cơ sở dữ liệu             |
 |  3  | Blade Template      | Template engine cho giao diện Laravel |
 |  4  | HTML, CSS           | Xây dựng giao diện người dùng         |
-|  5  | Tailwind CSS        | Thiết kế responsive                   |
+|  5  | Bootstrap           | Thiết kế responsive, giao diện
 
 ---
 
@@ -76,7 +76,20 @@ php artisan serve
 ```
 
 ---
+## Tài Khoản Đăng Nhập Mẫu
 
+**1. Tài khoản Admin**  
+- **Email:** ductanlang200@gmail.com  
+- **Mật khẩu:** 12345678g  
+
+**2. Tài khoản User**  
+- **Email:** user@example.com  
+- **Mật khẩu:** password  
+
+**Hoặc:**  
+- Bạn có thể tự đăng ký một tài khoản mới bằng chức năng Đăng ký trên trang chủ.
+
+---
 ## :brain: Sơ Đồ
 
 ### :file_cabinet: Sơ đồ cơ sở dữ liệu
@@ -224,12 +237,37 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 
 ## :framed_picture: Giao Diện Chính Website
 
-- Giao diện Đăng nhập/ Đăng ký  
-  <img src="Img/login.png" width="45%" style="display:inline-block; margin-right:10px;">
-  <img src="Img/reigister.png" width="45%" style="display:inline-block;">
+1. Giao diện Đăng nhập/ Đăng ký
 
-- Giao diện của Admin  
-  ![Giao diện Admin](Img/Admin.png)
+<div style="display: flex; gap: 16px;">
+  <img src="Img/login.png" style="width:48%; height:320px; object-fit:cover; border:1px solid #ccc;">
+  <img src="Img/reigister.png" style="width:48%; height:320px; object-fit:cover; border:1px solid #ccc;">
+</div>
 
-- Giao diện của User  
-  ![Giao diện User](Img/User.png)
+2. Giao diện của Admin  
+- Thống kê  
+  <img src="Img/Admin.png" style="width:80%; display:block; margin:auto;">
+- Quản lý tài khoản  
+  <img src="Img/TaiKhoan.png" style="width:80%; display:block; margin:auto;">
+- Quản lý đơn hàng  
+  <img src="Img/order.png" style="width:80%; display:block; margin:auto;">
+- Quản lý sản phẩm  
+  <img src="Img/product.png" style="width:80%; display:block; margin:auto;">
+- Quản lý danh mục  
+  <img src="Img/category.png" style="width:80%; display:block; margin:auto;">
+- Quản lý thông báo  
+  <img src="Img/Notification.png" style="width:80%; display:block; margin:auto;">
+
+3. Giao diện của User  
+- Trang chủ  
+  <img src="Img/User.png" style="width:80%; display:block; margin:auto;">
+- Trang shop  
+  <img src="Img/Shop.png" style="width:80%; display:block; margin:auto;">
+- Trang blog  
+  <img src="Img/Blog.png" style="width:80%; display:block; margin:auto;">
+- Trang contact  
+  <img src="Img/Contact.png" style="width:80%; display:block; margin:auto;">
+- Trang cart  
+  <img src="Img/Cart.png" style="width:80%; display:block; margin:auto;">
+- Trang profile  
+  <img src="Img/Profile.png" style="width:80%; display:block; margin:auto;">
