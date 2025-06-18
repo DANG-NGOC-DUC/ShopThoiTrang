@@ -271,3 +271,11 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
   <img src="Img/Cart.png" style="width:80%; display:block; margin:auto;">
 - Trang profile  
   <img src="Img/Profile.png" style="width:80%; display:block; margin:auto;">
+
+---
+
+## Liên Kết
+- **GitHub**: https://github.com/DANG-NGOC-DUC/ShopThoiTrang.git
+- **Public Website**: ***(đang cập nhật)***
+
+---
