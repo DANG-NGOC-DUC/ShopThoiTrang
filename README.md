@@ -2,8 +2,8 @@
 
 ## :bust_in_silhouette: Thông Tin Sinh Viên
 
-- Họ và tên: Nguyễn Văn A
-- Mã sinh viên: 12345678
+- Họ và tên: Đặng Ngọc Đức
+- Mã sinh viên: 23010803
 - Lớp: K17_CNTT-8
 - Môn học: Thiết kế Web nâng cao (COUR01.TH4)
 
